@@ -1,24 +1,241 @@
-# Nestjs specific
-/dist
-/node_modules
-/build
-/tmp
+# ============================================
+# 🚫 Open Challenges Platform .gitignore
+# ============================================
 
-# Logs
-logs
+# ============================================
+# 🖥️ OS & EDITOR FILES
+# ============================================
+.DS_Store
+.DS_Store?
+*.swp
+*.swo
+*~
+Thumbs.db
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.iml
+*.code-workspace
+.metal/
+
+# ============================================
+# 📁 FRONTEND (Next.js 14)
+# ============================================
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.turbo/
+frontend/dist/
+frontend/build/
+frontend/.cache/
+frontend/coverage/
+frontend/.nyc_output/
+
+# Frontend Lock Files
+frontend/package-lock.json
+frontend/pnpm-lock.yaml
+frontend/yarn.lock
+
+# Frontend Logs
+frontend/logs/
+frontend/**/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/lerna-debug.log*
+
+# Frontend IDE
+frontend/.vscode/
+frontend/.idea/
+frontend/*.sublime-workspace
+
+# ============================================
+# 🔧 BACKEND (FastAPI/Python)
+# ============================================
+backend/venv/
+backend/env/
+backend/.venv/
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/.Python
+backend/build/
+backend/develop-eggs/
+backend/dist/
+backend/downloads/
+backend/eggs/
+backend/.eggs/
+backend/lib/
+backend/lib64/
+backend/parts/
+backend/sdist/
+backend/var/
+backend/wheels/
+backend/pip-wheel-metadata/
+backend/share/python-wheels/
+backend/*.egg-info/
+backend/.installed.cfg
+backend/*.egg
+backend/MANIFEST
+backend/.pytest_cache/
+backend/.coverage
+backend/htmlcov/
+backend/poetry.lock
+backend/Pipfile.lock
+
+# Backend Virtual Environments
+backend/venv/
+backend/ENV/
+backend/env.bak/
+backend/venv.bak/
+
+# Backend IDE
+backend/.vscode/
+backend/.idea/
+
+# Backend Database
+backend/db.sqlite3
+backend/db.sqlite3-journal
+backend/*.db
+
+# ============================================
+# 🔐 ENVIRONMENT & SECRETS
+# ============================================
+.env
+.env.local
+.env.*.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+secrets/
+*.pem
+*.key
+*.pub
+*.crt
+private/
+
+# ============================================
+# 📊 DATABASE & CACHE
+# ============================================
+*.sqlite
+*.sqlite3
+*.db
+redis/dump.rdb
+mongo/data/
+postgres/data/
+mysql/data/
+
+# ============================================
+# 🐳 DOCKER & COMPOSE
+# ============================================
+docker-compose.override.yml
+.docker/
+.dockerignore
+
+# ============================================
+# 📜 LOGS & TEMP
+# ============================================
+logs/
+log/
+tmp/
+temp/
 *.log
-npm-debug.log*
+*.tmp
+.cache/
+.tmp/
+*.out
+
+# ============================================
+# 🧪 TESTING & COVERAGE
+# ============================================
+coverage/
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+.nose*
+jest.config.js
+.nyc_output/
+*.lcov
+junit.xml
+test-results/
+
+# ============================================
+# 📦 DEPENDENCIES
+# ============================================
+node_modules/
+*.npm
 pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 lerna-debug.log*
 
-# dotenv environment variable files
-.env
-.env.development
-.env.test
-.env.production
+# ============================================
+# 🛠️ BUILD OUTPUT
+# ============================================
+dist/
+build/
+out/
+.next/
+.nuxt/
+.turbo/
+.parcel-cache
+*.tsbuildinfo
 
-# temp directory
-.temp
-.tmp
+# ============================================
+# 📁 IDE CONFIGURATION (SAFE)
+# ============================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# ============================================
+# 🗂️ BACKUP & TEMPORARY
+# ============================================
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+.~*
+*.lnk
+
+# ============================================
+# 📁 SYSTEM FOLDERS
+# ============================================
+.Trash/
+$RECYCLE.BIN/
+.parcel-cache/
+
+# ============================================
+# 📱 OS SPECIFIC
+# ============================================
+.DS_Store
+.DS_Store?
+*.swp
+*.swo
+*~
+
+# ============================================
+# 💾 OPTIONAL: KEEP THESE
+# ============================================
+# ALWAYS COMMIT:
+# - README.md
+# - package.json (frontend) & requirements.txt (backend)
+# - src/ code files
+# - .eslintrc.json, .prettierrc
+# - tsconfig.json, next.config.js
+# - tailwind.config.ts
+# - Documentation files (*.md)
+# - LICENSE
+# - .github/ (workflows, templates)
+# - docker/ (Dockerfile, docker-compose.yml)
