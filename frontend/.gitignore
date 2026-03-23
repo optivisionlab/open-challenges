@@ -1,0 +1,141 @@
+# ============================================
+# 🚫 Frontend (Next.js 14) .gitignore
+# ============================================
+
+# ============================================
+# 📦 DEPENDENCIES
+# ============================================
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# ============================================
+# 🧪 TESTING & COVERAGE
+# ============================================
+/coverage
+.coverage
+.coverage.*
+.pytest_cache/
+*.lcov
+.nyc_output/
+junit.xml
+test-results/
+
+# ============================================
+# 🛠️ BUILD OUTPUT
+# ============================================
+/.next/
+/out/
+/build
+/dist
+.next
+.turbo
+.parcel-cache
+
+# ============================================
+# 🔐 ENVIRONMENT & SECRETS
+# ============================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.pub
+
+# ============================================
+# 🐛 DEBUG & LOGS
+# ============================================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+logs/
+log/
+
+# ============================================
+# 🖥️ EDITOR & IDE
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.sublime-project
+*.iml
+*.iws
+*.ipr
+
+# ============================================
+# 🖱️ OS FILES
+# ============================================
+.DS_Store
+.DS_Store?
+*.swp
+Thumbs.db
+.Trash/
+$RECYCLE.BIN/
+
+# ============================================
+# 📝 TYPESCRIPT
+# ============================================
+*.tsbuildinfo
+next-env.d.ts
+
+# ============================================
+# 🔄 DEPLOYMENT
+# ============================================
+.vercel
+.netlify
+.firebaserc
+.firebase/
+
+# ============================================
+# 🗂️ TEMPORARY FILES
+# ============================================
+.cache
+.tmp
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+
+# ============================================
+# 📌 SAFE TO COMMIT:
+# ============================================
+# - src/ (source code)
+# - public/ (static assets)
+# - package.json (dependencies list)
+# - tsconfig.json (TypeScript config)
+# - next.config.js (Next.js config)
+# - tailwind.config.ts (Tailwind config)
+# - .eslintrc.json (ESLint rules)
+# - .prettierrc (Code formatter)
+# - .env.example (Template only, no secrets)
+# - README.md (Documentation)
+# - Dockerfile (Container setup)
+
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
