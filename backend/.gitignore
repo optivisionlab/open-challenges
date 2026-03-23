@@ -1,0 +1,189 @@
+# ============================================
+# 🚫 Backend (FastAPI/Python) .gitignore
+# ============================================
+
+# ============================================
+# 🐍 PYTHON VENV & DEPENDENCIES
+# ============================================
+/venv
+/env
+/.venv
+/ENV
+/env.bak
+/venv.bak
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ============================================
+# 📦 PACKAGE MANAGERS
+# ============================================
+poetry.lock
+Pipfile.lock
+requirements-lock.txt
+.venv/
+venv/
+
+# ============================================
+# 🔐 ENVIRONMENT & SECRETS
+# ============================================
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+.env.production.local
+secrets/
+*.pem
+*.key
+*.pub
+*.crt
+private/
+
+# ============================================
+# 💾 DATABASE
+# ============================================
+db.sqlite3
+db.sqlite3-journal
+*.db
+*.sqlite
+*.sqlite3
+postgres/data/
+mysql/data/
+mongo/data/
+
+# ============================================
+# 📜 LOGS & TEMP
+# ============================================
+*.log
+logs/
+log/
+tmp/
+temp/
+*.tmp
+.cache/
+.coverage
+coverage/
+htmlcov/
+
+# ============================================
+# 🧪 TESTING
+# ============================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.nose*
+.tox/
+*.lcov
+junit.xml
+test-results/
+
+# ============================================
+# 🖥️ IDE & EDITOR
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+
+# ============================================
+# 🖱️ OS FILES
+# ============================================
+.DS_Store
+.DS_Store?
+Thumbs.db
+.Trash/
+$RECYCLE.BIN/
+*.lnk
+
+# ============================================
+# 🗂️ BACKUP & TEMPORARY
+# ============================================
+*.bak
+*.backup
+*~
+.~*
+
+# ============================================
+# 🛠️ BUILD & DISTRIBUTION
+# ============================================
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ============================================
+# 📁 JUPYTER NOTEBOOKS
+# ============================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+*.ipynb
+
+# ============================================
+# 🐳 DOCKER
+# ============================================
+docker-compose.override.yml
+.dockerignore
+
+# ============================================
+# 🔗 IDE PLUGINS
+# ============================================
+jedi/
+.ropeproject/
+
+# ============================================
+# 📊 PROFILING & DEBUGGING
+# ============================================
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.mypy_cache/
+.dmypy.cache
+
+# ============================================
+# 📌 SAFE TO COMMIT:
+# ============================================
+# - app/ or src/ (source code)
+# - requirements.txt (dependencies list)
+# - .env.example (Template only)
+# - alembic/ (database migrations)
+# - README.md (Documentation)
+# - Dockerfile (Container setup)
+# - docker-compose.yml (Services)
+# - pyproject.toml (Project config)
+# - setup.py (Package setup)
+# - tests/ (Test files)
