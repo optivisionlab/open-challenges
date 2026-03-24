@@ -160,16 +160,16 @@ export default function ChallengeDetail({
                   >
                     Join Challenge
                   </button>
-                  <button
-                    disabled={!isActive}
-                    className={`w-full py-2 px-4 rounded-lg font-semibold transition-colors ${
+                  <Link
+                    href={`/challenges/${challenge.id}/submit`}
+                    className={`block w-full py-2 px-4 rounded-lg font-semibold transition-colors text-center ${
                       isActive
                         ? "bg-green-600 text-white hover:bg-green-700"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed pointer-events-none"
                     }`}
                   >
                     Submit Solution
-                  </button>
+                  </Link>
                   <button className="w-full py-2 px-4 rounded-lg font-semibold bg-gray-200 text-gray-900 hover:bg-gray-300 transition-colors">
                     Download Dataset
                   </button>
