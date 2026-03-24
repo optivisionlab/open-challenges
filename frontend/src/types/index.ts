@@ -135,3 +135,43 @@ export interface PaginatedResponse<T> {
   page_size: number;
   total_pages: number;
 }
+
+// Authentication types
+export type RegistrationType = "INDIVIDUAL" | "TEAM";
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  access_token: string;
+  refresh_token?: string;
+  user: User;
+  team?: Team;
+}
+
+export interface RegisterIndividualRequest {
+  email: string;
+  password: string;
+  password_confirm: string;
+  first_name: string;
+  last_name: string;
+  username: string;
+}
+
+export interface RegisterTeamRequest {
+  email: string;
+  password: string;
+  password_confirm: string;
+  first_name: string;
+  last_name: string;
+  username: string;
+  team_name: string;
+  team_description?: string;
+  team_logo_url?: string;
+}
+
+export interface JoinTeamRequest {
+  team_code: string;
+}

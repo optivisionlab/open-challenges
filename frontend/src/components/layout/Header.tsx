@@ -51,13 +51,13 @@ export default function Header() {
           {/* Right side buttons */}
           <div className="hidden md:flex items-center gap-4">
             <Link
-              href="/auth/login"
+              href="/login"
               className="text-gray-700 hover:text-blue-600 font-medium"
             >
               Sign In
             </Link>
             <Link
-              href="/auth/register"
+              href="/register"
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
             >
               Join Now
@@ -107,13 +107,13 @@ export default function Header() {
               Leaderboard
             </Link>
             <Link
-              href="/auth/login"
+              href="/login"
               className="block py-2 text-gray-700 hover:text-blue-600"
             >
               Sign In
             </Link>
             <Link
-              href="/auth/register"
+              href="/register"
               className="block py-2 bg-blue-600 text-white rounded-lg mt-2"
             >
               Join Now

@@ -103,3 +103,31 @@ input:focus-visible {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 }
+
+/* Blob animation for auth background */
+@keyframes blob {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(25px) translateY(-25px);
+  }
+  50% {
+    transform: translateX(0) translateY(-50px);
+  }
+  75% {
+    transform: translateX(-25px) translateY(-25px);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
