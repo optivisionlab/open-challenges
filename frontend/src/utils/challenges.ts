@@ -1,6 +1,6 @@
 import type { Challenge, PaginatedResponse } from "@/types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1";
+// const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1";
 
 // Mock data for demo purposes (will be replaced with real API calls)
 export const mockChallenges: Challenge[] = [

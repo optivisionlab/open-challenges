@@ -9,7 +9,6 @@ import {
   getDifficultyColor,
   getStatusColor,
   formatNumber,
-  truncateText,
 } from "@/utils/formatters";
 
 interface ChallengeCardProps {

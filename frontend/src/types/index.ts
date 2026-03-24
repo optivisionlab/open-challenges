@@ -104,6 +104,7 @@ export interface LeaderboardEntry {
   rank: number;
   team_id: string;
   team_name: string;
+  team_member_count?: number;
   overall_score: number;
   primary_metric_score: number;
   submission_count: number;
