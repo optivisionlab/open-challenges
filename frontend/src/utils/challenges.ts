@@ -1,4 +1,4 @@
-import type { Challenge, PaginatedResponse } from "@/types";
+import type { Challenge, PaginatedResponse, Metric } from "@/types";
 
 // const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1";
 
@@ -194,6 +194,254 @@ export class ChallengeService {
       return challenges;
     } catch (error) {
       console.error("Error fetching challenges by difficulty:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get challenges filtered by status
+   */
+  static async getChallengesByStatus(status: string) {
+    try {
+      // Mock implementation
+      const challenges = mockChallenges.filter((c) => c.status === status);
+      return challenges;
+    } catch (error) {
+      console.error("Error fetching challenges by status:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Search challenges by query
+   */
+  static async searchChallenges(query: string) {
+    try {
+      // Mock implementation
+      const lowerQuery = query.toLowerCase();
+      const results = mockChallenges.filter(
+        (c) =>
+          c.title.toLowerCase().includes(lowerQuery) ||
+          c.description.toLowerCase().includes(lowerQuery) ||
+          c.problem_statement.toLowerCase().includes(lowerQuery)
+      );
+      return results;
+    } catch (error) {
+      console.error("Error searching challenges:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Filter challenges by multiple criteria
+   */
+  static async filterChallenges(filters: {
+    status?: string[];
+    difficulty?: string[];
+    search?: string;
+    minPrize?: number;
+    maxPrize?: number;
+  }) {
+    try {
+      // Mock implementation
+      let results = [...mockChallenges];
+
+      if (filters.status && filters.status.length > 0) {
+        results = results.filter((c) => filters.status!.includes(c.status));
+      }
+
+      if (filters.difficulty && filters.difficulty.length > 0) {
+        results = results.filter((c) =>
+          filters.difficulty!.includes(c.difficulty_level)
+        );
+      }
+
+      if (filters.search) {
+        const lowerSearch = filters.search.toLowerCase();
+        results = results.filter(
+          (c) =>
+            c.title.toLowerCase().includes(lowerSearch) ||
+            c.description.toLowerCase().includes(lowerSearch)
+        );
+      }
+
+      if (filters.minPrize !== undefined) {
+        results = results.filter((c) => (c.prize_pool || 0) >= filters.minPrize!);
+      }
+
+      if (filters.maxPrize !== undefined) {
+        results = results.filter((c) => (c.prize_pool || 0) <= filters.maxPrize!);
+      }
+
+      return results;
+    } catch (error) {
+      console.error("Error filtering challenges:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Create new challenge
+   */
+  static async createChallenge(data: Partial<Challenge>) {
+    try {
+      // TODO: Replace with real API call
+      // const response = await fetch(`${API_BASE_URL}/challenges`, {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data),
+      // });
+      // return response.json();
+
+      // Mock implementation
+      const newChallenge: Challenge = {
+        id: Math.random().toString(36).substring(7),
+        title: data.title || "",
+        description: data.description || "",
+        problem_statement: data.problem_statement || "",
+        status: data.status || "DRAFT",
+        difficulty_level: data.difficulty_level || "MEDIUM",
+        dataset_url: data.dataset_url,
+        image_url: data.image_url,
+        prize_pool: data.prize_pool,
+        start_date: data.start_date || new Date().toISOString(),
+        end_date: data.end_date || new Date().toISOString(),
+        participant_count: 0,
+        submission_count: 0,
+        created_by: "current-user",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+
+      mockChallenges.push(newChallenge);
+      return newChallenge;
+    } catch (error) {
+      console.error("Error creating challenge:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update challenge
+   */
+  static async updateChallenge(id: string, data: Partial<Challenge>) {
+    try {
+      // TODO: Replace with real API call
+      // const response = await fetch(`${API_BASE_URL}/challenges/${id}`, {
+      //   method: 'PUT',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data),
+      // });
+      // return response.json();
+
+      // Mock implementation
+      const index = mockChallenges.findIndex((c) => c.id === id);
+      if (index === -1) throw new Error("Challenge not found");
+
+      mockChallenges[index] = {
+        ...mockChallenges[index],
+        ...data,
+        updated_at: new Date().toISOString(),
+      };
+
+      return mockChallenges[index];
+    } catch (error) {
+      console.error("Error updating challenge:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete challenge
+   */
+  static async deleteChallenge(id: string) {
+    try {
+      // TODO: Replace with real API call
+      // const response = await fetch(`${API_BASE_URL}/challenges/${id}`, {
+      //   method: 'DELETE',
+      // });
+      // return response.ok;
+
+      // Mock implementation
+      const index = mockChallenges.findIndex((c) => c.id === id);
+      if (index === -1) throw new Error("Challenge not found");
+
+      mockChallenges.splice(index, 1);
+      return true;
+    } catch (error) {
+      console.error("Error deleting challenge:", error);
+      throw error;
+    }
+  }
+}
+
+/**
+ * Metric Service - Handle metric-related operations
+ */
+export class MetricService {
+  static async getMetrics(challengeId: string): Promise<Metric[]> {
+    try {
+      // TODO: Replace with real API call
+      // const response = await fetch(`${API_BASE_URL}/challenges/${challengeId}/metrics`);
+      // return response.json();
+
+      // Mock implementation
+      return [
+        {
+          id: "1",
+          challenge_id: challengeId,
+          name: "Accuracy",
+          description: "Percentage of correct predictions",
+          metric_type: "SCORING_METRIC",
+          weight: 1,
+          is_primary: true,
+          min_value: 0,
+          max_value: 100,
+          direction: "HIGHER_IS_BETTER",
+          created_at: new Date().toISOString(),
+        },
+        {
+          id: "2",
+          challenge_id: challengeId,
+          name: "F1 Score",
+          description: "Harmonic mean of precision and recall",
+          metric_type: "SCORING_METRIC",
+          weight: 0.8,
+          is_primary: false,
+          min_value: 0,
+          max_value: 1,
+          direction: "HIGHER_IS_BETTER",
+          created_at: new Date().toISOString(),
+        },
+      ];
+    } catch (error) {
+      console.error("Error fetching metrics:", error);
+      throw error;
+    }
+  }
+
+  static async createMetric(
+    challengeId: string,
+    data: Partial<Metric>
+  ): Promise<Metric> {
+    try {
+      // TODO: Replace with real API call
+      // const response = await fetch(`${API_BASE_URL}/challenges/${challengeId}/metrics`, {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data),
+      // });
+      // return response.json();
+
+      // Mock implementation
+      return {
+        id: Math.random().toString(36).substring(7),
+        challenge_id: challengeId,
+        ...data,
+        created_at: new Date().toISOString(),
+      } as Metric;
+    } catch (error) {
+      console.error("Error creating metric:", error);
       throw error;
     }
   }
