@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-from typing import List
+from typing import List, Optional
 import json
 
 
@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     
     # Database
     DATABASE_URL: str = "postgresql://user:password@localhost:5432/open_challenges"
-    SQLALCHEMY_DATABASE_URL: str = None
+    SQLALCHEMY_DATABASE_URL: Optional[str] = None
     
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"
@@ -42,6 +42,12 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env.development"
         case_sensitive = True
+    
+    def __init__(self, **data):
+        """Initialize settings and compute SQLALCHEMY_DATABASE_URL if not set."""
+        super().__init__(**data)
+        if self.SQLALCHEMY_DATABASE_URL is None:
+            self.SQLALCHEMY_DATABASE_URL = self.DATABASE_URL
     
     @property
     def origins_list(self) -> List[str]:

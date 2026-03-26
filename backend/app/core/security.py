@@ -2,12 +2,8 @@ import logging
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 from jose import JWTError, jwt
-from passlib.context import CryptContext
-from pydantic import ValidationError
+import bcrypt
 from app.core.config import settings
-
-# Configure password hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -15,12 +11,26 @@ logger = logging.getLogger(__name__)
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a plain password against a hashed password."""
-    return pwd_context.verify(plain_password, hashed_password)
+    try:
+        return bcrypt.checkpw(
+            plain_password.encode('utf-8'),
+            hashed_password.encode('utf-8')
+        )
+    except Exception as e:
+        logger.error(f"Error verifying password: {e}")
+        return False
 
 
 def get_password_hash(password: str) -> str:
     """Generate a hash of a password."""
-    return pwd_context.hash(password)
+    try:
+        # Generate salt and hash
+        salt = bcrypt.gensalt(rounds=12)
+        hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
+        return hashed.decode('utf-8')
+    except Exception as e:
+        logger.error(f"Error hashing password: {e}, Type: {type(e)}")
+        raise
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:

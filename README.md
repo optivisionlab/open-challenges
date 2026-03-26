@@ -763,3 +763,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Built with ❤️ by the Open Challenges Team**
 
 For the latest updates and more details, visit our [Documentation Hub](DOCUMENTATION_INDEX.md).
+
+## Recent Updates (March 26, 2026)
+
+### Backend
+- Fixed registration issue where new accounts were not being saved to the database.
+- Resolved PostgreSQL error related to the missing "user" database.
+- Updated Docker Compose healthcheck configuration for PostgreSQL.
+
+### Frontend
+- Updated `Header.tsx` to display the account icon and dropdown menu for authenticated users.
+- Integrated `authService.ts` with the backend API for login and registration.
+
+### Testing
+- Verified database persistence and API functionality with test scripts.
+- Conducted frontend testing to ensure proper UI updates after login.

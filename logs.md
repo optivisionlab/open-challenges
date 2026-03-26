@@ -424,6 +424,26 @@ For issues or questions:
 
 ---
 
+### Log Entry: March 26, 2026
+
+#### Backend
+- Investigated and fixed the registration issue by reviewing `auth.py`, `auth_service.py`, and `user.py`.
+- Updated `authService.ts` to connect the frontend with the backend API.
+- Resolved PostgreSQL error by fixing the healthcheck in `docker-compose.dev.yml`.
+- Verified database persistence using `test_db_persistence.py`.
+
+#### Frontend
+- Edited `Header.tsx` to conditionally display the account icon for authenticated users.
+- Updated `authService.ts` to store user information in `localStorage` after login.
+- Verified frontend changes by running `npm run dev` and testing the login flow.
+
+#### Testing
+- Conducted end-to-end testing to ensure registration and login functionality.
+- Verified database and API functionality with test scripts.
+- Confirmed frontend UI updates after login.
+
+---
+
 **Last Updated**: March 23, 2026  
 **Status**: ✅ All Build Issues Resolved - Development Ready  
 **Next Action**: Deploy to staging or production
