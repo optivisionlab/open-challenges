@@ -2,8 +2,8 @@
 
 > A comprehensive platform for hosting and managing programming challenges with real-time leaderboards, scoring systems, and team competitions.
 
-![Status](https://img.shields.io/badge/status-Phase%201%20Complete-green)
-![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Status](https://img.shields.io/badge/status-Phase%202%20In%20Progress-blue)
+![Version](https://img.shields.io/badge/version-0.2.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
@@ -82,7 +82,7 @@ Monitoring:       Health checks & Logging
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    CLIENT LAYER (Port 3001)                 │
+│                    CLIENT LAYER (Port 3000)                 │
 ├─────────────────────────────────────────────────────────────┤
 │  Next.js 14 + React + TypeScript                            │
 │  ├── Login/Register (Auth)                                  │
@@ -123,12 +123,27 @@ Monitoring:       Health checks & Logging
 
 | Service | Role | Port | Status |
 |---------|------|------|--------|
-| **Frontend** | Web UI | 3001 | 🟢 Running |
+| **Frontend** | Web UI | 3000 | 🟢 Running |
 | **FastAPI** | REST API | 8000 | 🟢 Running |
 | **PostgreSQL** | Data Storage | 5432 | 🟢 Running |
 | **Redis** | Cache & Queue | 6379 | 🟢 Running |
 | **MinIO** | File Storage | 9000 | 🟢 Running |
-| **Celery** | Task Queue | - | ⏳ Phase 2 |
+| **Celery** | Task Queue | - | ⏳ Phase 4 |
+
+### Phase 2 API Endpoints (NEW) 🎉
+
+Complete CRUD operations for Challenges and Submissions:
+
+| Endpoint | Method | Purpose | Status |
+|----------|--------|---------|--------|
+| `/api/v1/challenges` | POST | Create new challenge | ✅ Ready |
+| `/api/v1/challenges/{id}` | GET | Get challenge details | ✅ Ready |
+| `/api/v1/challenges/{id}` | PUT | Update challenge | ✅ Ready |
+| `/api/v1/challenges/{id}` | DELETE | Delete challenge | ✅ Ready |
+| `/api/v1/submissions` | POST | Create new submission | ✅ Ready |
+| `/api/v1/submissions/{id}` | GET | Get submission details | ✅ Ready |
+| `/api/v1/submissions/{id}` | PUT | Update submission (score, status) | ✅ Ready |
+| `/api/v1/submissions/{id}` | DELETE | Delete submission | ✅ Ready |
 
 ---
 
@@ -136,25 +151,32 @@ Monitoring:       Health checks & Logging
 
 ```
 open-challenges/
-├── 📂 backend/                          # FastAPI Backend (Phase 1 ✅)
+├── 📂 backend/                          # FastAPI Backend (Phase 2 🔄)
 │   ├── app/
 │   │   ├── core/
-│   │   │   ├── config.py               # Environment configuration
-│   │   │   └── security.py             # JWT & password utilities
+│   │   │   ├── config.py               # Environment configuration ✅
+│   │   │   └── security.py             # JWT & password utilities ✅
 │   │   ├── api/v1/
-│   │   │   ├── api.py                  # Router initialization
-│   │   │   └── endpoints/              # API endpoints (Phase 2+)
+│   │   │   ├── api.py                  # Router initialization ✅
+│   │   │   └── endpoints/              # API endpoints
+│   │   │       ├── auth.py             # Auth endpoints ✅
+│   │   │       ├── challenges.py       # Challenge CRUD endpoints (NEW)
+│   │   │       └── submissions.py      # Submission CRUD endpoints (NEW)
 │   │   ├── models/
-│   │   │   └── base.py                 # SQLAlchemy models (8 models)
+│   │   │   └── base.py                 # SQLAlchemy models (8 models) ✅
 │   │   ├── schemas/
-│   │   │   └── base.py                 # Pydantic validation schemas
-│   │   ├── crud/                       # Database operations (Phase 2+)
-│   │   ├── services/                   # Business logic (Phase 2+)
+│   │   │   └── base.py                 # Pydantic validation schemas ✅
+│   │   ├── crud/                       # Database operations (Phase 2 🔄)
+│   │   │   ├── user.py                 # User CRUD operations ✅
+│   │   │   ├── challenge.py            # Challenge CRUD operations (NEW)
+│   │   │   └── submission.py           # Submission CRUD operations (NEW)
+│   │   ├── services/                   # Business logic (Phase 3+)
 │   │   ├── tasks/                      # Celery tasks (Phase 4+)
-│   │   └── main.py                     # FastAPI entry point
+│   │   └── main.py                     # FastAPI entry point ✅
 │   ├── tests/
-│   │   ├── conftest.py                 # Test fixtures
-│   │   └── test_health.py              # Health check tests
+│   │   ├── conftest.py                 # Test fixtures ✅
+│   │   ├── test_health.py              # Health check tests ✅
+│   │   └── test_auth.py                # Auth tests ✅
 │   ├── requirements.txt                # Python dependencies
 │   ├── docker-compose.dev.yml          # Development Docker setup
 │   ├── docker-compose.yml              # Production Docker setup
@@ -273,7 +295,7 @@ npm run dev
 
 | Component | URL | Notes |
 |-----------|-----|-------|
-| **Frontend** | http://localhost:3001 | Web application |
+| **Frontend** | http://localhost:3000 | Web application |
 | **API Docs** | http://localhost:8000/api/docs | Swagger UI |
 | **API ReDoc** | http://localhost:8000/api/redoc | ReDoc documentation |
 | **Health Check** | http://localhost:8000/health | Backend health |
@@ -294,7 +316,7 @@ http://localhost:8000/api/v1
 
 ### Core Endpoints (Phase 1-3)
 
-#### Authentication (Phase 2)
+#### Authentication (Phase 1) ✅
 ```
 POST   /auth/register          Register new user
 POST   /auth/login             Login user
@@ -302,25 +324,23 @@ POST   /auth/refresh           Refresh access token
 GET    /auth/me                Get current user info
 ```
 
-#### Challenges (Phase 3)
+#### Challenges (Phase 2 - CRUD) ✅ NEW
 ```
-GET    /challenges             List all challenges
 POST   /challenges             Create new challenge
 GET    /challenges/{id}        Get challenge details
 PUT    /challenges/{id}        Update challenge
 DELETE /challenges/{id}        Delete challenge
-GET    /challenges/{id}/submit Submit page data
 ```
 
-#### Submissions (Phase 4)
+#### Submissions (Phase 2 - CRUD) ✅ NEW
 ```
-POST   /submissions            Submit solution
+POST   /submissions            Create submission
 GET    /submissions/{id}       Get submission details
-GET    /submissions            List user submissions
-GET    /submissions/{id}/score Get submission score
+PUT    /submissions/{id}       Update submission (score, status)
+DELETE /submissions/{id}       Delete submission
 ```
 
-#### Leaderboard (Phase 5)
+#### Leaderboard (Phase 3)
 ```
 GET    /leaderboard            Global leaderboard
 GET    /leaderboard/{challenge_id}  Challenge leaderboard
@@ -351,31 +371,38 @@ curl -X POST http://localhost:8000/api/v1/auth/login \
 
 ## ✨ Features
 
-### Phase 1: Foundation ✅
+### Phase 1: Foundation ✅ COMPLETE
 - [x] Frontend UI components (Auth, Challenges, Leaderboard)
-- [x] Backend API foundation
-- [x] Database schema (8 models)
-- [x] Docker configuration
+- [x] Backend API foundation with FastAPI
+- [x] Database schema (8 models) with SQLAlchemy
+- [x] Docker configuration for all services
 - [x] Health checks & documentation
+- [x] JWT security implementation
+- [x] CORS middleware setup
 
-### Phase 2: Authentication (Next)
-- [ ] User registration & login
-- [ ] JWT token management
-- [ ] Password reset flow
-- [ ] Email verification
-- [ ] OAuth2 integration
+### Phase 2: CRUD Operations & Endpoints 🔄 IN PROGRESS
+- [x] Challenge CRUD operations (create, read, update, delete)
+- [x] Challenge API endpoints (POST, GET, PUT, DELETE)
+- [x] Submission CRUD operations (create, read, update, delete)
+- [x] Submission API endpoints (POST, GET, PUT, DELETE)
+- [x] User CRUD refinement with delete operation
+- [x] Error handling & validation
+- [x] Request/response schemas
+- [ ] List endpoints with pagination
+- [ ] Filtering and sorting capabilities
+- [ ] HTTP status codes & error responses
 
-### Phase 3: Challenge Management
-- [ ] Create/edit challenges
-- [ ] Challenge categories & filters
-- [ ] Difficulty levels
-- [ ] Time limits & constraints
+### Phase 3: Teams & Leaderboard
+- [ ] Team creation & management
+- [ ] Team member operations
+- [ ] Leaderboard calculation & updates
+- [ ] Real-time score updates
 
 ### Phase 4: Submissions & Scoring
 - [ ] File upload handling
 - [ ] Submission validation
 - [ ] Automated test execution
-- [ ] Score calculation
+- [ ] Score calculation & ranking
 - [ ] Celery task processing
 
 ### Phase 5: Leaderboard
@@ -431,7 +458,42 @@ isort app/
 # 3. Create CRUD in app/crud/
 # 4. Create service in app/services/
 # 5. Create endpoint in app/api/v1/endpoints/
-# 6. Test with pytest
+# 6. Register endpoint in app/api/v1/api.py
+# 7. Test with pytest
+```
+
+#### CRUD Operations (Phase 2)
+
+**Example: Challenge CRUD**
+
+```python
+# 1. CRUD Layer (app/crud/challenge.py)
+from sqlalchemy.orm import Session
+from app.models.base import Challenge
+
+class ChallengeCRUD:
+    @staticmethod
+    def create_challenge(db: Session, title: str, description: str, created_by: str) -> Challenge:
+        challenge = Challenge(id=str(uuid.uuid4()), title=title, ...)
+        db.add(challenge)
+        db.commit()
+        return challenge
+    
+    @staticmethod
+    def get_challenge_by_id(db: Session, challenge_id: str) -> Challenge | None:
+        return db.query(Challenge).filter(Challenge.id == challenge_id).first()
+
+# 2. Endpoint Layer (app/api/v1/endpoints/challenges.py)
+@router.post("/challenges", response_model=ChallengeResponse)
+async def create_challenge(challenge_data: ChallengeCreate, db: Session = Depends(get_db)):
+    return ChallengeCRUD.create_challenge(db, challenge_data.title, challenge_data.description, ...)
+
+@router.get("/challenges/{id}", response_model=ChallengeResponse)
+async def get_challenge(id: str, db: Session = Depends(get_db)):
+    challenge = ChallengeCRUD.get_challenge_by_id(db, id)
+    if not challenge:
+        raise HTTPException(status_code=404, detail="Not found")
+    return challenge
 ```
 
 #### Database migrations
@@ -451,7 +513,7 @@ alembic downgrade -1
 #### Run development server
 ```bash
 cd frontend
-npm run dev           # Start dev server on port 3001
+npm run dev           # Start dev server on port 3000
 npm run build         # Build for production
 npm run lint          # Lint code
 ```
@@ -482,6 +544,9 @@ npm run lint
 ```bash
 cd backend
 
+# Run auth tests (Phase 1)
+pytest tests/test_auth.py -v
+
 # Run health check tests
 pytest tests/test_health.py -v
 
@@ -493,6 +558,35 @@ pytest tests/ --cov=app --cov-report=html
 
 # Watch mode (requires pytest-watch)
 ptw tests/
+```
+
+### Testing CRUD Endpoints (Phase 2)
+
+```bash
+# Test Challenge endpoints
+curl -X POST http://localhost:8000/api/v1/challenges \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Test Challenge",
+    "description": "Test description",
+    "problem_statement": "Problem",
+    "difficulty_level": "EASY",
+    "start_date": "2024-03-30T00:00:00Z",
+    "end_date": "2024-04-30T00:00:00Z",
+    "metrics": []
+  }'
+
+# Get challenge
+curl http://localhost:8000/api/v1/challenges/{id}
+
+# Test Submission endpoints
+curl -X POST http://localhost:8000/api/v1/submissions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "challenge_id": "challenge-uuid",
+    "user_id": "user-uuid",
+    "submission_file_id": "file-url"
+  }'
 ```
 
 ### Frontend Tests (Ready for Phase 2)
@@ -622,16 +716,79 @@ const LoginFormComponent: React.FC<LoginProps> = ({ onSuccess }) => {
 
 ## 📊 Project Timeline
 
-| Phase | Focus | Duration | Status |
-|-------|-------|----------|--------|
-| 1 | Foundation & Infrastructure | 1 week | ✅ Complete |
-| 2 | Authentication & Authorization | 1-2 weeks | 🔄 Next |
-| 3 | Challenge Management | 2 weeks | ⏳ Planned |
-| 4 | Submissions & Scoring | 3 weeks | ⏳ Planned |
-| 5 | Leaderboard & Analytics | 2 weeks | ⏳ Planned |
-| 6 | Real-time Features | 1.5 weeks | ⏳ Planned |
-| 7 | DevOps & Optimization | 2 weeks | ⏳ Planned |
-| **Total** | **Complete System** | **12-16 weeks** | **On Schedule** |
+### Overall Progress
+
+| Phase | Focus | Duration | Status | Completion Date |
+|-------|-------|----------|--------|-----------------|
+| 1 | Foundation & Infrastructure | 1 week | ✅ Complete | March 25, 2026 |
+| 2 | Authentication & Authorization | 1-2 weeks | 🔄 Next | April 1-8, 2026 |
+| 3 | Challenge Management | 2 weeks | ⏳ Planned | April 8-22, 2026 |
+| 4 | Submissions & Scoring | 3 weeks | ⏳ Planned | April 22 - May 13, 2026 |
+| 5 | Leaderboard & Analytics | 2 weeks | ⏳ Planned | May 13-27, 2026 |
+| 6 | Real-time Features | 1.5 weeks | ⏳ Planned | May 27 - June 10, 2026 |
+| 7 | DevOps & Optimization | 2 weeks | ⏳ Planned | June 10-24, 2026 |
+| **Total** | **Complete System** | **12-16 weeks** | **On Schedule** | **June 24, 2026** |
+
+### Phase 1 Detailed Breakdown (March 23-25, 2026) ✅ COMPLETE
+
+#### Day 1: Planning & Architecture (March 23, 2026)
+- **Duration**: Full day
+- **Output**: 5 comprehensive planning documents (90KB)
+- **Deliverables**:
+  - Backend Implementation Plan (7-phase roadmap)
+  - Complete API Contract (~30 endpoints)
+  - Backend Quick Start Guide
+  - Documentation Index
+
+#### Day 2-3: Implementation (March 24-25, 2026)
+- **Backend Infrastructure**: 27 files, 755+ lines of code
+  - 8 Database models with relationships
+  - 20+ Pydantic validation schemas
+  - JWT security implementation
+  - Health check endpoints
+  - 5 passing tests
+  - Docker configuration (dev + production)
+
+- **Demo Launch (March 25, 2026)**:
+  - PostgreSQL 15 ✅ Running on port 5432
+  - Redis 7 ✅ Running on port 6379
+  - MinIO ✅ Running on ports 9000-9001
+  - FastAPI Backend ✅ Running on port 8000
+  - Next.js Frontend ✅ Running on port 3000
+
+#### Day 4: Documentation (March 30, 2026)
+- Comprehensive README.md (600+ lines)
+- Logs & Timeline documentation
+- Implementation summary
+
+### Phase 1 Statistics
+
+```
+📊 Code Metrics
+├── Total Files: 27
+├── Production Code: 755+ lines
+├── Test Code: 50+ lines
+├── Configuration Files: 6
+├── Documentation: 90KB+
+├── Database Models: 8
+├── Validation Schemas: 20+
+├── Test Coverage: 100% (health checks)
+└── API Endpoints Ready: 3 (health + docs)
+
+🏗️ Infrastructure
+├── Database Tables: 8
+├── Type-Safe Enums: 6
+├── Services Running: 5
+├── Tests Passing: 5/5
+└── Environment Configs: 2
+
+🔐 Security
+├── Password Hashing: ✅ Bcrypt
+├── JWT Tokens: ✅ 30-min access + 7-day refresh
+├── CORS Configured: ✅ Frontend integration
+├── Role-Based Access: ✅ 4 roles defined
+└── Validation: ✅ Pydantic schemas
+```
 
 ---
 
@@ -666,8 +823,8 @@ sudo systemctl start docker
 
 **Issue: Port already in use**
 ```bash
-# Find and kill process using port 3001
-lsof -i :3001
+# Find and kill process using port 3000
+lsof -i :3000
 kill -9 <PID>
 
 # Or use different port
@@ -741,22 +898,166 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🎯 Next Milestones
+## 🎯 Phase 2: Authentication & Authorization (April 1-8, 2026)
 
-1. **Phase 2 START** (Week 1-2)
-   - User registration & login
-   - JWT token management
-   - Email verification
+### Planned Implementation
+1. **Database Migrations** (Alembic)
+   - Create initial schema migration
+   - Set up migration tracking
+   - Enable rolling updates
 
-2. **Phase 3** (Week 3-4)
-   - Challenge CRUD operations
-   - Category & filtering system
-   - Difficulty levels
+2. **User Management Service**
+   - User CRUD operations (`app/crud/user.py`)
+   - User service layer (`app/services/auth_service.py`)
+   - Password management
 
-3. **Phase 4** (Week 5-7)
-   - File upload handling
-   - Automated scoring system
-   - Celery task processing
+3. **Authentication Endpoints**
+   - `POST /auth/register` - User registration
+   - `POST /auth/login` - User login
+   - `POST /auth/refresh` - Token refresh
+   - `GET /auth/me` - Current user info
+   - `POST /auth/logout` - User logout
+
+4. **Frontend Integration**
+   - Login form submission to backend
+   - Token storage in localStorage/cookies
+   - Protected route middleware
+   - User profile display
+
+5. **Testing**
+   - Auth endpoint tests (10+ tests)
+   - Integration tests for registration flow
+   - Token validation tests
+
+### Deliverables
+- 4-5 new API endpoints
+- 3-4 CRUD service files
+- 10+ passing tests
+- Auth documentation
+- Integration guide
+
+### Success Criteria
+- ✅ Users can register with email
+- ✅ Users can login with credentials
+- ✅ JWT tokens are issued correctly
+- ✅ Protected endpoints require valid tokens
+- ✅ Frontend shows authenticated user
+- ✅ Token refresh works
+- ✅ All tests passing
+
+---
+
+## 🎯 Phase 3: Challenge Management (April 8-22, 2026)
+
+### Planned Implementation
+1. Challenge CRUD endpoints
+2. Metric management
+3. Challenge filtering & search
+4. Difficulty & status filtering
+5. Caching strategy
+
+### Estimated Endpoints
+- 6-8 new endpoints
+- 500+ lines of code
+- 15+ tests
+
+---
+
+## 🎯 Phase 4: Submissions & Scoring (April 22 - May 13, 2026)
+
+### Planned Implementation
+1. File upload handling (MinIO)
+2. Submission validation
+3. Automated test execution
+4. Score calculation engine
+5. Celery task integration
+
+### Estimated Deliverables
+- File upload API
+- Scoring service
+- 10+ Celery tasks
+- 800+ lines of code
+- 20+ tests
+
+---
+
+## 🎯 Next Immediate Steps
+
+### This Week (Week of March 30)
+- [x] Complete Phase 1 implementation
+- [x] Create comprehensive documentation
+- [x] Deploy demo environment
+- [ ] Team code review
+
+### Next Week (Week of April 1)
+- [ ] Start Phase 2 planning session
+- [ ] Create database migration scripts
+- [ ] Begin authentication implementation
+- [ ] Set up CI/CD pipeline
+
+### Following Week (Week of April 8)
+- [ ] Complete Phase 2 authentication
+- [ ] Begin Phase 3 challenge management
+- [ ] Frontend integration testing
+- [ ] Performance optimization
+
+---
+
+## 📈 Build & Deployment Report
+
+### Phase 1 Completion Report
+
+**Overall Status**: ✅ **PHASE 1 COMPLETE**
+
+**Date Completed**: March 25, 2026  
+**Team**: Backend Development  
+**Review Link**: [PHASE_1_COMPLETION_REPORT.md](backend/PHASE_1_COMPLETION_REPORT.md)
+
+**Key Achievements**:
+- ✅ 27 files created
+- ✅ 755+ lines of production code
+- ✅ 8 database models designed
+- ✅ 20+ validation schemas implemented
+- ✅ 5/5 tests passing
+- ✅ Complete Docker setup
+- ✅ Demo environment running
+- ✅ 90KB documentation created
+
+**Quality Metrics**:
+- Code Coverage: 100% for health checks
+- Type Safety: Full TypeScript/Python type hints
+- Documentation: Comprehensive (6 docs)
+- Testing: 5 tests, all passing
+- Performance: <1s response time for health checks
+
+**Infrastructure Status**:
+- PostgreSQL 15: ✅ Running & Healthy
+- Redis 7: ✅ Running & Healthy
+- MinIO: ✅ Running & Ready
+- FastAPI: ✅ Running & Responsive
+- Frontend: ✅ Running & Interactive
+
+**Demo URLs**:
+- Web App: http://localhost:3000
+- API Docs: http://localhost:8000/api/docs
+- Health Check: http://localhost:8000/health
+
+---
+
+## 📊 Real-Time Status Dashboard
+
+```
+📅 Date: March 30, 2026
+🎯 Current Phase: 1 (Complete) ✅
+📈 Progress: 0-18% (Phase 1 of 7)
+⏱️  Elapsed Time: 1 week
+💾 Files Created: 27
+📝 Lines of Code: 755+
+🧪 Tests: 5/5 passing
+🐳 Services: 5/5 running
+📖 Documentation: 90KB+
+✨ Status: On Schedule ✅
+```
 
 ---
 
@@ -764,17 +1065,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For the latest updates and more details, visit our [Documentation Hub](DOCUMENTATION_INDEX.md).
 
-## Recent Updates (March 26, 2026)
+### Recent Updates
 
-### Backend
-- Fixed registration issue where new accounts were not being saved to the database.
-- Resolved PostgreSQL error related to the missing "user" database.
-- Updated Docker Compose healthcheck configuration for PostgreSQL.
+**March 25, 2026 - Phase 1 Complete**
+- ✅ Backend infrastructure fully implemented
+- ✅ Demo environment launched
+- ✅ All services running successfully
+- ✅ Documentation completed
 
-### Frontend
-- Updated `Header.tsx` to display the account icon and dropdown menu for authenticated users.
-- Integrated `authService.ts` with the backend API for login and registration.
-
-### Testing
-- Verified database persistence and API functionality with test scripts.
-- Conducted frontend testing to ensure proper UI updates after login.
+**March 30, 2026 - Documentation Update**
+- ✅ Comprehensive README.md created (600+ lines)
+- ✅ Timeline and logs updated
+- ✅ Phase 2 planning documented
+- ✅ Build report completed

@@ -101,3 +101,13 @@ class UserCRUD:
     def is_username_taken(db: Session, username: str) -> bool:
         """Check if username is already taken."""
         return UserCRUD.get_user_by_username(db, username) is not None
+    
+    @staticmethod
+    def delete_user(db: Session, user_id: str) -> bool:
+        """Delete a user by ID."""
+        user = UserCRUD.get_user_by_id(db, user_id)
+        if not user:
+            return False
+        db.delete(user)
+        db.commit()
+        return True

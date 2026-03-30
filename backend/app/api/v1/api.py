@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import auth
+from app.api.v1.endpoints import auth, challenges, submissions
 
 # Create API router
 router = APIRouter()
@@ -7,6 +7,8 @@ router = APIRouter()
 
 # Include endpoint routers
 router.include_router(auth.router)
+router.include_router(challenges.router)
+router.include_router(submissions.router)
 
 
 @router.get("/health")

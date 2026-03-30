@@ -141,7 +141,7 @@ class ChallengeResponse(BaseModel):
     submission_count: int
     created_by: str
     created_at: datetime
-    updated_at: datetime
+    updated_at: Optional[datetime]
     
     class Config:
         from_attributes = True
@@ -181,6 +181,14 @@ class TeamResponse(BaseModel):
     
     class Config:
         from_attributes = True
+
+
+class SubmissionCreate(BaseModel):
+    """Submission creation schema."""
+    challenge_id: str
+    user_id: str
+    submission_file_id: str
+    team_id: Optional[str] = None
 
 
 class SubmissionResponse(BaseModel):
